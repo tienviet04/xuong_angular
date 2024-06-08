@@ -29,6 +29,8 @@ export class ProductCreateComponent {
   messageService = inject(MessageService);
   categoryService = inject(CategoryService);
 
+
+
   addProductForm: FormGroup = new FormGroup({
     title: new FormControl('', [Validators.required]),
     image: new FormControl('', [Validators.required]),

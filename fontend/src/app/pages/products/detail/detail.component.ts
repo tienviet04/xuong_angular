@@ -25,11 +25,15 @@ export class ProductDetailComponent {
   bidService = inject(BidService);
 
   product!: Product | undefined;
-  config: CountdownConfig = {
-    leftTime: 0,
-  };
-
-  // bidPriceMax: number = 0;
+  //Đếm ngược thời gian
+  timerConfig = { leftTime: 1 };
+  isShowing = false;
+  // Ẩn khi = 0
+  handleCountDown(event: any) {
+    if (event.action === 'done') {
+      this.isShowing = false;
+    }
+  }
 
   bidForm: FormGroup = new FormGroup({
     price: new FormControl('', [Validators.min(1)]),
@@ -44,11 +48,21 @@ export class ProductDetailComponent {
         const stepTimeBid = Math.floor(
           (new Date(data.endAt).getTime() - new Date().getTime()) / 1000
         );
-        this.config = {
+        this.timerConfig = {
           leftTime: stepTimeBid,
         };
-        // const maxPrice = Math.max(...data.bids.map((bid) => bid.price));
-        // this.bidPriceMax = maxPrice;
+        //Hiển khi đến giờ bắt đầu
+        const startAtTime = new Date(this.product.startAt).getTime();
+        const currentTime = new Date().getTime();
+        console.log(startAtTime, currentTime);
+
+        const isExMatch = startAtTime <= currentTime;
+        if (isExMatch) {
+          this.isShowing = true;
+        }
+        this.timerConfig = {
+          leftTime: stepTimeBid,
+        };
       },
       error: (error) => {
         console.error(error);
