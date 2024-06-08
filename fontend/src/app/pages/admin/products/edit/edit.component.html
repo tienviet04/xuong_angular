@@ -1,0 +1,111 @@
+<div
+  *ngIf="errorMessage"
+  class="error-message text-3xl flex justify-center text-red-500"
+>
+  {{ errorMessage }}
+</div>
+<div class="notification-container">
+  <p-messages [(value)]="messages"></p-messages>
+</div>
+<div class="max-w-screen-xl mx-auto px-4 py-16">
+  <h2 class="text-center my-3 text-2xl font-bold sm:text-3xl">
+    Product Update
+  </h2>
+  <form
+    [formGroup]="addProductForm"
+    (ngSubmit)="handleUpdateProduct()"
+    class="mx-auto mb-0 mt-8 max-w-md space-y-4"
+  >
+    <div class="mb-3">
+      <label for="title" class="form-label">Title</label>
+      <input
+        type="text"
+        class="form-control"
+        id="title"
+        formControlName="title"
+      />
+      @if(addProductForm.controls['title'].touched &&
+      addProductForm.controls['title'].errors?.['required']) {
+      <span class="text-danger text-small"
+        ><small>Title is Required</small></span
+      >
+      }
+    </div>
+    <div class="mb-3">
+      <label for="image" class="form-label">Image</label>
+      <input
+        type="text"
+        class="form-control"
+        id="image"
+        formControlName="image"
+      />
+    </div>
+    <div class="mb-3">
+      <label for="price" class="form-label">Price</label>
+      <input
+        type="number"
+        class="form-control"
+        id="price"
+        formControlName="price"
+      />
+      @if(addProductForm.controls['price'].touched &&
+      addProductForm.controls['price'].errors?.['min']) {
+      <span class="text-danger text-small"><small>Price Min 0</small></span>
+      }
+    </div>
+    <div class="mb-3">
+      <label for="description" class="form-label">Description</label>
+      <textarea
+        class="form-control"
+        id="description"
+        rows="3"
+        formControlName="description"
+      ></textarea>
+    </div>
+    <div class="mb-3">
+      <label for="category" class="form-label">Category</label>
+      <select class="form-control" id="category" formControlName="category">
+        <option value="">Select Category</option>
+        <!-- @for (category of categories; track category._id) {
+        <option value="{{ category._id }}">{{ category.name }}</option>
+        } -->
+        <option
+          *ngFor="let cate of categories"
+          [value]="cate._id"
+          [selected]="cate.name == product?.category?.name"
+        >
+          {{ cate.name }}
+        </option>
+      </select>
+    </div>
+    <div class="mb-3">
+      <label for="startAt" class="form-label">Start At</label>
+      <input
+        type="datetime-local"
+        class="form-control"
+        id="startAt"
+        formControlName="startAt"
+      />
+    </div>
+    <div class="mb-3">
+      <label for="times" class="form-label">Select Times</label>
+      <select class="form-control" id="times" formControlName="bidTime">
+        <option value="">Select Time</option>
+        <option value="15">15p</option>
+        <option value="30">30p</option>
+        <option value="60">1h</option>
+      </select>
+    </div>
+    <div class="mb-3 form-check">
+      <input
+        type="checkbox"
+        class="form-check-input"
+        id="isShow"
+        checked
+        formControlName="isShow"
+      />
+      <label class="form-check-label" for="isShow">Show Product</label>
+    </div>
+    <button type="submit" class="btn btn-primary">Update Product</button>
+  </form>
+</div>

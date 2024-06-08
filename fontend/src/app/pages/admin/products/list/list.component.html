@@ -1,0 +1,84 @@
+<div *ngIf="errorMessage" class="error-message text-3xl flex justify-center">
+  {{ errorMessage }}
+</div>
+<div class="overflow-x-auto">
+  <div class="notification-container">
+    <p-messages [(value)]="messages"></p-messages>
+  </div>
+  <table class="min-w-full divide-y-2 divide-gray-200 bg-white text-sm">
+    <thead class="ltr:text-left rtl:text-right">
+      <tr>
+        <th class="whitespace-nowrap px-4 py-2 font-medium text-gray-900">
+          Name
+        </th>
+        <th class="whitespace-nowrap px-4 py-2 font-medium text-gray-900">
+          Mô tả
+        </th>
+        <th class="whitespace-nowrap px-4 py-2 font-medium text-gray-900">
+          Giá
+        </th>
+        <th class="whitespace-nowrap px-4 py-2 font-medium text-gray-900">
+          Img
+        </th>
+        <th class="whitespace-nowrap px-4 py-2 font-medium text-gray-900">
+          Category
+        </th>
+
+        <th class="whitespace-nowrap px-4 py-2 font-medium text-gray-900">
+          Hành động
+        </th>
+        <th class="px-4 py-2"></th>
+      </tr>
+    </thead>
+    <tbody class="divide-y divide-gray-200">
+      <tr *ngFor="let product of products">
+        <td class="whitespace-nowrap px-4 py-2 font-medium text-gray-900">
+          {{ product.title }}
+        </td>
+        <td class="wt whitespace-nowrap px-4 py-2 text-gray-700">
+          {{ product.description }}
+        </td>
+        <td class="whitespace-nowrap px-4 py-2 text-gray-700">
+          {{ product.price }}
+        </td>
+        <td class="whitespace-nowrap px-4 py-2 text-gray-700">
+          {{ product.image }}
+        </td>
+        <td class="whitespace-nowrap px-4 py-2 text-gray-700">
+          {{ product.category.name }}
+        </td>
+
+        <td class="whitespace-nowrap px-4 py-2 text-gray-700">
+          <img class="size-24" src="https://picsum.photos/200/300" alt="" />
+        </td>
+        <td class="whitespace-nowrap px-4 py-2">
+          <a
+            [routerLink]="['/admin/edit', product._id]"
+            class="inline-block rounded border border-[#476730] bg-[#476730] px-4 py-2 text-xs font-medium text-white hover:bg-transparent hover:text-[#476730] focus:outline-none focus:ring active:text-[#476730] mr-2"
+          >
+            Cập nhật
+          </a>
+          <a
+            [routerLink]="['/detail', product._id]"
+            class="inline-block rounded border border-[#476730] bg-[#476730] px-4 py-2 text-xs font-medium text-white hover:bg-transparent hover:text-[#476730] focus:outline-none focus:ring active:text-[#476730] mr-2"
+          >
+            Chi tiết sản phẩm
+          </a>
+          <button
+            class="inline-block rounded border border-red-500 bg-red-500 px-4 py-2 text-xs font-medium text-white hover:bg-transparent hover:text-red-500 focus:outline-none focus:ring active:text-red-500"
+            (click)="handleDeleteProduct(product._id)"
+          >
+            Xóa
+          </button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+<ng-template #noProductsFound>
+  <div class="text-center py-8">
+    <p class="text-lg text-gray-600 dark:text-gray-200">
+      Sản phẩm bạn tìm không tồn tại
+    </p>
+  </div>
+</ng-template>

@@ -1,0 +1,194 @@
+<div
+  *ngIf="errorMessage"
+  class="error-message text-3xl text-red-500 flex justify-center font-bold"
+>
+  {{ errorMessage }}
+</div>
+<div>
+  <div
+    class="max-w-screen-xl mx-auto flex items-baseline max-sm:px-[10px] sm:px-[10px] lg:px-[0px]"
+  >
+    <p class="font-semibold text-[64px] max-sm:text-[42px]">Products</p>
+    <p class="text-[20px] ml-12 max-sm:text-[14px] max-sm:ml-4">May 28, 2024</p>
+    <div class="ml-auto max-sm:hidden sm:flex">
+      <div class="pr-2">
+        <button class="bg-[#C3CEB7] rounded-xl w-[88px] h-[48px]">
+          <p class="font-semibold">Defaut</p>
+        </button>
+      </div>
+      <div class="pr-2">
+        <button
+          class="bg-white border-solid border-2 border-[#C3CEB7] rounded-xl w-[62px] h-[48px]"
+        >
+          <p class="font-semibold">A-Z</p>
+        </button>
+      </div>
+      <div>
+        <button
+          class="bg-white border-solid border-2 border-[#C3CEB7] rounded-xl w-[101px] h-[48px]"
+        >
+          <p class="font-semibold">List Views</p>
+        </button>
+      </div>
+    </div>
+  </div>
+  <!-- Lọc item mobile -->
+  <div class="ml-auto sm:hidden lg:hidden flex justify-center pt-2">
+    <div class="pr-2">
+      <button
+        class="bg-[#C3CEB7] rounded-full px-[12px] py-[10px] h-[32px] flex items-center"
+      >
+        <p class="font-semibold text-[14px]">Defaut</p>
+      </button>
+    </div>
+    <div class="pr-2">
+      <button
+        class="bg-white border-solid border-2 border-[#C3CEB7] rounded-full px-[12px] py-[10px] h-[32px] flex items-center"
+      >
+        <p class="font-semibold text-[14px]">A-Z</p>
+      </button>
+    </div>
+    <button
+      class="bg-white border-solid border-2 border-[#C3CEB7] rounded-full px-[12px] py-[10px] h-[32px] flex items-center"
+    >
+      <p class="font-semibold text-[14px]">List Views</p>
+    </button>
+  </div>
+</div>
+
+<!-- Item products -->
+<div tabindex="0" class="focus:outline-none">
+  <div class="mx-auto container py-8">
+    <div
+      class="grid grid-cols-3 max-sm:grid-cols-2 gap-4 max-w-screen-xl mx-auto py-8 max-sm:px-2"
+      *ngIf="pagedProducts.length > 0; else noProductsFound"
+    >
+      <div class="" *ngFor="let product of pagedProducts">
+        <img
+          class="rounded-t-2xl object-cover"
+          src="https://picsum.photos/2500/1667/"
+          alt=""
+        />
+        <div class="bg-[#EDEFE4] rounded-b-2xl">
+          <div class="mx-3 pt-4 pb-6">
+            <div class="flex justify-between">
+              <a href="" [routerLink]="['/detail', product._id]">
+                <h3 class="text-lg max-sm:text-[14px]">{{ product.title }}</h3>
+              </a>
+              <p
+                class="text-[#476730] text-xl max-sm:text-[12px] max-sm:pt-0.5"
+              >
+                {{ product.price }}
+              </p>
+            </div>
+            <p
+              class="mt-2 line-clamp-3 text-sm text-gray-500 max-sm:text-[12px]"
+            >
+              {{ product.description }}
+            </p>
+            <p
+              class="mt-2 line-clamp-3 text-sm text-gray-500 max-sm:text-[12px]"
+            >
+              {{ product.category.name }}
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="flex items-center justify-center py-10 lg:px-0 sm:px-6 px-4">
+      <div
+        class="lg:w-[30%] w-full flex items-center justify-between border-t border-gray-200 dark:border-gray-700"
+      >
+        <div
+          class="flex items-center pt-3 text-gray-600 dark:text-gray-200 hover:text-indigo-700 cursor-pointer"
+          (click)="goToPage(currentPage > 1 ? currentPage - 1 : 1)"
+        >
+          <svg
+            width="14"
+            height="8"
+            viewBox="0 0 14 8"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M1.1665 4H12.8332"
+              stroke="currentColor"
+              stroke-width="1.25"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            />
+            <path
+              d="M1.1665 4L4.49984 7.33333"
+              stroke="currentColor"
+              stroke-width="1.25"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            />
+            <path
+              d="M1.1665 4.00002L4.49984 0.666687"
+              stroke="currentColor"
+              stroke-width="1.25"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            />
+          </svg>
+          <p class="text-sm ml-3 font-medium leading-none">Previous</p>
+        </div>
+        <div class="sm:flex hidden">
+          <button
+            *ngFor="let page of pages"
+            (click)="goToPage(page)"
+            [class.active]="page === currentPage"
+            class="text-sm font-medium leading-none cursor-pointer text-gray-600 dark:text-gray-200 hover:text-indigo-700 dark:hover:text-indigo-400 border-t border-transparent hover:border-indigo-400 pt-3 mr-4 px-2"
+          >
+            {{ page }}
+          </button>
+        </div>
+        <div
+          class="flex items-center pt-3 text-gray-600 dark:text-gray-200 hover:text-indigo-700 cursor-pointer"
+          (click)="
+            goToPage(currentPage < totalPages ? currentPage + 1 : totalPages)
+          "
+        >
+          <p class="text-sm font-medium leading-none mr-3">Next</p>
+          <svg
+            width="14"
+            height="8"
+            viewBox="0 0 14 8"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M1.1665 4H12.8332"
+              stroke="currentColor"
+              stroke-width="1.25"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            />
+            <path
+              d="M9.5 7.33333L12.8333 4"
+              stroke="currentColor"
+              stroke-width="1.25"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            />
+            <path
+              d="M9.5 0.666687L12.8333 4.00002"
+              stroke="currentColor"
+              stroke-width="1.25"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            />
+          </svg>
+        </div>
+      </div>
+    </div>
+    <ng-template #noProductsFound>
+      <div class="text-center py-8">
+        <p class="text-lg text-gray-600 dark:text-gray-200">
+          Sản phẩm bạn tìm không tồn tại
+        </p>
+      </div>
+    </ng-template>
+  </div>
+</div>

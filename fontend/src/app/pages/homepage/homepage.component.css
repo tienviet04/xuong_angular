@@ -1,0 +1,12 @@
+
+.line-clamp {
+    display: -webkit-box;
+    -webkit-line-clamp: 2; /* Số dòng muốn hiển thị */
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  button.active {
+     /* Màu nền cho trang hiện tại */
+    color: rgb(67, 56, 202); /* Màu chữ cho trang hiện tại */
+  } 

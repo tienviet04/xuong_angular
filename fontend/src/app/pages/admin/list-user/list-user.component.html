@@ -1,0 +1,52 @@
+<div class="overflow-x-auto">
+  <div class="notification-container">
+    <p-messages [(value)]="messages"></p-messages>
+  </div>
+  <table class="min-w-full divide-y-2 divide-gray-200 bg-white text-sm">
+    <thead class="ltr:text-left rtl:text-right">
+      <tr>
+        <th class="whitespace-nowrap px-4 py-2 font-medium text-gray-900">
+          Id
+        </th>
+        <th class="whitespace-nowrap px-4 py-2 font-medium text-gray-900">
+          Name
+        </th>
+        <th class="whitespace-nowrap px-4 py-2 font-medium text-gray-900">
+          Email
+        </th>
+        <th class="whitespace-nowrap px-4 py-2 font-medium text-gray-900">
+          Role
+        </th>
+        <th class="whitespace-nowrap px-4 py-2 font-medium text-gray-900">
+          Hành động
+        </th>
+        <th class="px-4 py-2"></th>
+      </tr>
+    </thead>
+    <tbody class="divide-y divide-gray-200">
+      <tr *ngFor="let user of users">
+        <!-- Sử dụng thuộc tính user._id, user.username, ... như bạn đã làm trước đó -->
+        <td class="whitespace-nowrap px-4 py-2 font-medium text-gray-900">
+          {{ user._id }}
+        </td>
+        <td class="wt whitespace-nowrap px-4 py-2 text-gray-700">
+          {{ user.username }}
+        </td>
+        <td class="whitespace-nowrap px-4 py-2 text-gray-700">
+          {{ user.email }}
+        </td>
+        <td class="whitespace-nowrap px-4 py-2 text-gray-700">
+          {{ user.role }}
+        </td>
+        <td class="whitespace-nowrap px-4 py-2">
+          <button
+            class="inline-block rounded border border-red-500 bg-red-500 px-4 py-2 text-xs font-medium text-white hover:bg-transparent hover:text-red-500 focus:outline-none focus:ring active:text-red-500"
+            (click)="handleDeleteUser(user._id)"
+          >
+            Xóa
+          </button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
