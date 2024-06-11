@@ -15,7 +15,7 @@ const BidSchema = new Schema(
       type: Number,
       required: true,
     },
-    isWidBid: {
+    isWinBid: {
       type: Boolean,
       default: false,
     },

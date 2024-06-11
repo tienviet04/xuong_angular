@@ -64,6 +64,12 @@
           >
             Chi tiết sản phẩm
           </a>
+          <a
+            [routerLink]="['/admin/', product._id, 'bids']"
+            class="inline-block rounded border border-[#476730] bg-[#476730] px-4 py-2 text-xs font-medium text-white hover:bg-transparent hover:text-[#476730] focus:outline-none focus:ring active:text-[#476730] mr-2"
+          >
+            Bids info
+          </a>
           <button
             class="inline-block rounded border border-red-500 bg-red-500 px-4 py-2 text-xs font-medium text-white hover:bg-transparent hover:text-red-500 focus:outline-none focus:ring active:text-red-500"
             (click)="handleDeleteProduct(product._id)"

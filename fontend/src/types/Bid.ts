@@ -12,4 +12,5 @@ export type Bid = BidForm & {
   _id: string;
   user: User;
   createdAt: Date;
+  isWinBid: Boolean;
 };

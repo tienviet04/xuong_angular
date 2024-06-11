@@ -10,6 +10,7 @@ import { LoginComponent } from './pages/login/login.component';
 import { RegisterComponent } from './pages/register/register.component';
 import { GuadService } from './services/guad.service';
 import { ListUserComponent } from './pages/admin/list-user/list-user.component';
+import { BidsComponent } from './pages/admin/products/bids/bids.component';
 
 export const routes: Routes = [
   {
@@ -28,6 +29,10 @@ export const routes: Routes = [
       {
         path: 'edit/:id',
         component: ProductEditComponent,
+      },
+      {
+        path: ':id/bids',
+        component: BidsComponent,
       },
       {
         path: 'user',

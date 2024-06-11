@@ -1,0 +1,55 @@
+<div class="overflow-x-auto">
+  <div class="notification-container">
+    <p-messages [(value)]="messages"></p-messages>
+  </div>
+  @if (product) {
+  <h1 class="text-center">Product Info : {{ product.title }}</h1>
+
+  <table class="min-w-full divide-y-2 divide-gray-200 bg-white text-sm">
+    <thead class="ltr:text-left rtl:text-right">
+      <tr>
+        <th class="whitespace-nowrap px-4 py-2 font-medium text-gray-900">
+          Email
+        </th>
+        <th class="whitespace-nowrap px-4 py-2 font-medium text-gray-900">
+          UserName
+        </th>
+        <th class="whitespace-nowrap px-4 py-2 font-medium text-gray-900">
+          Date
+        </th>
+
+        <th class="px-4 py-2"></th>
+      </tr>
+    </thead>
+    <tbody class="divide-y divide-gray-200">
+      @for (bid of product.bids; track bid._id) {
+
+      <tr>
+        <td class="whitespace-nowrap px-4 py-2 font-medium text-gray-900">
+          {{ bid.user.email }}
+        </td>
+        <td class="whitespace-nowrap px-4 py-2 font-medium text-gray-900">
+          {{ bid.user.username }}
+        </td>
+        <td class="whitespace-nowrap px-4 py-2 font-medium text-gray-900">
+          {{ bid.price }}
+        </td>
+        <td class="whitespace-nowrap px-4 py-2 font-medium text-gray-900">
+          {{ bid.createdAt | date : "medium" }}
+        </td>
+
+        <td class="whitespace-nowrap px-4 py-2">
+          @if(bid.price === product.bidPriceMax && !bid.isWinBid) {
+          <button (click)="handleSetBidWin(bid._id)" class="btn btn-info">
+            Set Win
+          </button>
+          } @else if (bid.isWinBid) {
+          <span class="badge badge-success text-lg font-medium">Win Bid</span>
+          }
+        </td>
+      </tr>
+      }
+    </tbody>
+  </table>
+  }
+</div>

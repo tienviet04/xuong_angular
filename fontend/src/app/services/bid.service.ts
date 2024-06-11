@@ -14,4 +14,7 @@ export class BidService {
   createBid(data: BidForm) {
     return this.http.post(this.apiUrl, data);
   }
+  updateBid(id: string, isWinBid: boolean) {
+    return this.http.put(`${this.apiUrl}/${id}`, { isWinBid });
+  }
 }

@@ -15,11 +15,29 @@ class BidsController {
             ? req.body.price
             : req.body.bidPriceMax,
       },
-    { new: true }
+        { new: true }
       );
       res.status(StatusCodes.CREATED).json({
         message: "Create Bid Successfull",
         data: newBid,
+      });
+    } catch (error) {
+      next(error);
+    }
+  }
+  async updateBid(req, res, next) {
+    try {
+      console.log(req.body);
+      const updateBid = await Bid.findByIdAndUpdate(
+        req.params.id,
+        req.body,
+        { new: true }
+      );
+      if (!updateBid) throw new ApiError(404, "Bid Not Found");
+
+      res.status(StatusCodes.OK).json({
+        message: "Update Bid Successfull",
+        data: updateBid,
       });
     } catch (error) {
       next(error);
